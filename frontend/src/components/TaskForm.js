@@ -5,6 +5,8 @@ function TaskForm({ onAdd }) {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState("Low");
+  const [reset, setReset] = useState(false);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
