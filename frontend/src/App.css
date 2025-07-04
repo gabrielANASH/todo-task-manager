@@ -1,58 +1,79 @@
-/* ----------- Global Base Styles ----------- */
+/* ----------- Color Palette Variables ----------- */
+:root {
+  --primary: #6c63ff;
+  --primary-light: #8576ff;
+  --danger: #f76c6c;
+  --danger-light: #ff9e9e;
+  --secondary: #5c3dbb;
+  --info: #d0f0ff;
+  --info-dark: #007acc;
+  --light-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #333;
+}
+
+/* ----------- Base Styles ----------- */
 body {
   font-family: 'Segoe UI', 'Inter', sans-serif;
-  background-color: #f8fafc; /* Soft light background */
-  color: #333;
-  transition: background-color 0.3s ease;
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  transition: background-color 0.4s ease;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5 {
   font-weight: 600;
+  color: var(--primary);
 }
 
 .container {
   max-width: 900px;
   margin: auto;
+  padding: 1rem;
 }
 
 /* ----------- Card Styles ----------- */
 .card {
+  background-color: var(--card-bg);
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* ----------- Button Styles ----------- */
 .btn {
-  transition: all 0.2s ease-in-out;
   border-radius: 50px;
-}
-
-.btn:focus,
-.btn:active {
-  outline: none !important;
-  box-shadow: 0 0 0 0.2rem rgba(0, 132, 255, 0.2);
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
 
 .btn:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
+  opacity: 0.95;
+  transform: scale(1.05);
 }
 
-/* Color Palette */
+.btn:active,
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+  outline: none;
+}
+
+/* Custom Colors */
 .btn-primary {
-  background-color: #6c63ff;
-  border-color: #6c63ff;
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  border: none;
+  color: white;
 }
 
 .btn-danger {
-  background-color: #f76c6c;
-  border-color: #f76c6c;
+  background: linear-gradient(to right, var(--danger), var(--danger-light));
+  border: none;
+  color: white;
 }
 
 .btn-outline-secondary {
@@ -62,21 +83,21 @@ h1, h2, h3, h4, h5 {
 
 /* ----------- Badge Styles ----------- */
 .badge {
-  font-size: 0.75rem;
-  border-radius: 12px;
+  font-size: 0.75rem;;
+  border-radius: 20px;
   padding: 5px 10px;
   margin-right: 4px;
   transition: all 0.3s ease;
 }
 
 .badge.bg-info {
-  background-color: #c4e5ff;
-  color: #007acc;
+  background-color: var(--info);
+  color: var(--info-dark);
 }
 
 .badge.bg-secondary {
-  background-color: #e0d4ff;
-  color: #5c3dbb;
+  background-color: #ece6ff;
+  color: var(--secondary);
 }
 
 .badge.bg-light {
@@ -84,14 +105,13 @@ h1, h2, h3, h4, h5 {
   color: #444;
 }
 
-/* Pulse Animation for Status */
 .badge-pulse {
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(108, 99, 255, 0); }
+  70% { box-shadow: 0 0 0 12px rgba(108, 99, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
 }
 
@@ -100,14 +120,36 @@ h1, h2, h3, h4, h5 {
   padding: 0.375rem 0.75rem;
 }
 
-/* ----------- Form Transitions ----------- */
+/* ----------- Forms ----------- */
 input, textarea, select {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  box-shadow: 0 0 0 0.15rem rgba(100, 200, 255, 0.25);
-  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.4);
+  border-color: var(--primary);
+}
+
+/* ----------- Animations & Microinteractions ----------- */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scale-hover:hover {
+  transform: scale(1.02);
+  transition: 0.3s ease-in-out;
 }
