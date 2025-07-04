@@ -28,7 +28,6 @@ function TaskList() {
     try {
       const res = await fetch(url, { credentials: "include" });
       const data = await res.json();
-      console.log("Fetched tasks:", data);
 
       if (res.ok) {
         setTasks(Array.isArray(data.tasks) ? data.tasks : []);
@@ -108,79 +107,23 @@ function TaskList() {
 
   return (
     <div>
-      <div className="mb-2">
-        <label>Sort by: </label>
-        <select value={sortField} onChange={e => setSortField(e.target.value)}>
-          <option value="dueDate">Due Date</option>
-          <option value="priority">Priority</option>
-          <option value="title">Title</option>
-        </select>
-        <select value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-
-      <h5>Your Tasks</h5>
-      {tasks.length === 0 ? (
-        <div>No tasks found.</div>
-      ) : (
-        <ul className="list-group">
-          {tasks.map((task) => (
-            <li key={task._id} className="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                {editingTask && editingTask._id === task._id ? (
-                  <form className="mb-2" onSubmit={handleEditSubmit}>
-                    <input type="text" name="title" className="form-control mb-1" value={editForm.title} onChange={handleEditChange} required />
-                    <textarea name="description" className="form-control mb-1" value={editForm.description} onChange={handleEditChange} />
-                    <input type="date" name="dueDate" className="form-control mb-1" value={editForm.dueDate} onChange={handleEditChange} />
-                    <select name="priority" className="form-select mb-1" value={editForm.priority} onChange={handleEditChange}>
-                      <option>Low</option>
-                      <option>Medium</option>
-                      <option>High</option>
-                    </select>
-                    <select name="status" className="form-select mb-1" value={editForm.status} onChange={handleEditChange}>
-                      <option>Pending</option>
-                      <option>Completed</option>
-                    </select>
-                    <button type="submit" className="btn btn-success btn-sm me-2">Save</button>
-                    <button type="button" className="btn btn-secondary btn-sm" onClick={handleEditCancel}>Cancel</button>
-                  </form>
-                ) : (
-                  <>
-                    <strong>{task.title}</strong> <br />
-                    <small>{task.description}</small>
-                    <br />
-                    <span className="badge bg-secondary">{task.priority}</span>
-                    <span className="badge bg-info ms-2">{task.status}</span>
-                    <span className="badge bg-light text-dark ms-2">{task.dueDate}</span>
-                  </>
-                )}
-              </div>
-              <div>
-                {!editingTask || editingTask._id !== task._id ? (
-                  <>
-                    <button className="btn btn-sm btn-warning me-2" onClick={() => handleEdit(task)}>Edit</button>
-                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(task._id)}>Delete</button>
-                  </>
-                ) : null}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Show pagination only in paginated view */}
-      {!reset && (
-        <div className="mt-3">
-          <button className="btn btn-outline-primary btn-sm me-2" disabled={page <= 1} onClick={handlePrevPage}>Prev</button>
-          <span>Page {page} of {totalPages}</span>
-          <button className="btn btn-outline-primary btn-sm ms-2" disabled={page >= totalPages} onClick={handleNextPage}>Next</button>
+      {/* Sort Filters */}
+      <div className="d-flex flex-wrap align-items-center justify-content-start gap-3 mb-3">
+        <div>
+          <label className="form-label me-2 mb-0">Sort by:</label>
+          <select className="form-select" value={sortField} onChange={e => setSortField(e.target.value)}>
+            <option value="dueDate">Due Date</option>
+            <option value="priority">Priority</option>
+            <option value="title">Title</option>
+          </select>
         </div>
-      )}
-
-      {/* Always show toggle button */}
-      <div className="mt-2">
+        <div>
+          <label className="form-label me-2 mb-0">Order:</label>
+          <select className="form-select" value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
         <button
           className="btn btn-outline-secondary btn-sm"
           onClick={() => {
@@ -191,6 +134,69 @@ function TaskList() {
           {reset ? "Back to Paginated View" : "Show All Tasks"}
         </button>
       </div>
+
+      <h5 className="mb-3">📋 Your Tasks</h5>
+      {tasks.length === 0 ? (
+        <div className="alert alert-warning">No tasks found.</div>
+      ) : (
+        <div className="row g-3">
+          {tasks.map((task) => (
+            <div key={task._id} className="col-md-6">
+              <div className="card">
+                <div className="card-body">
+                  {editingTask && editingTask._id === task._id ? (
+                    <form onSubmit={handleEditSubmit}>
+                      <input type="text" name="title" className="form-control mb-2" value={editForm.title} onChange={handleEditChange} required />
+                      <textarea name="description" className="form-control mb-2" value={editForm.description} onChange={handleEditChange} />
+                      <input type="date" name="dueDate" className="form-control mb-2" value={editForm.dueDate} onChange={handleEditChange} />
+                      <select name="priority" className="form-select mb-2" value={editForm.priority} onChange={handleEditChange}>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                      </select>
+                      <select name="status" className="form-select mb-2" value={editForm.status} onChange={handleEditChange}>
+                        <option>Pending</option>
+                        <option>Completed</option>
+                      </select>
+                      <div className="d-flex justify-content-between">
+                        <button type="submit" className="btn btn-success btn-sm">✅ Save</button>
+                        <button type="button" className="btn btn-secondary btn-sm" onClick={handleEditCancel}>Cancel</button>
+                      </div>
+                    </form>
+                  ) : (
+                    <>
+                      <h5 className="card-title mb-1">{task.title}</h5>
+                      <p className="card-text mb-2 text-muted">{task.description}</p>
+                      <div className="mb-2">
+                        <span className="badge bg-secondary">{task.priority}</span>
+                        <span className="badge bg-info badge-pulse ms-2">{task.status}</span>
+                        <span className="badge bg-light text-dark ms-2">Due: {task.dueDate}</span>
+                      </div>
+                      <div className="d-flex justify-content-end gap-2">
+                        <button className="btn btn-sm btn-outline-warning" onClick={() => handleEdit(task)}>Edit</button>
+                        <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(task._id)}>Delete</button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Pagination Buttons */}
+      {!reset && (
+        <div className="mt-4 d-flex justify-content-center align-items-center gap-3">
+          <button className="btn btn-outline-primary btn-sm" disabled={page <= 1} onClick={handlePrevPage}>
+            ⬅ Prev
+          </button>
+          <span className="fw-semibold">Page {page} of {totalPages}</span>
+          <button className="btn btn-outline-primary btn-sm" disabled={page >= totalPages} onClick={handleNextPage}>
+            Next ➡
+          </button>
+        </div>
+      )}
     </div>
   );
 }

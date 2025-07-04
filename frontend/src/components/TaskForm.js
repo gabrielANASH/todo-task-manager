@@ -5,8 +5,6 @@ function TaskForm({ onAdd }) {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState("Low");
-  const [reset, setReset] = useState(false);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +23,7 @@ function TaskForm({ onAdd }) {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // uses session cookie
+        credentials: "include", // session-based
         body: JSON.stringify(newTask),
       });
 
@@ -48,39 +46,52 @@ function TaskForm({ onAdd }) {
   };
 
   return (
-    <div className="card mb-4">
+    <div className="card shadow-sm mb-4">
       <div className="card-body">
-        <h5 className="card-title">📝 Add New Task</h5>
+        <h5 className="card-title mb-3">📝 Add New Task</h5>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            className="form-control mb-2"
+            className="form-control mb-3"
             placeholder="Task Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
+
           <textarea
-            className="form-control mb-2"
-            placeholder="Description"
+            className="form-control mb-3"
+            placeholder="Task Description"
+            rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <input
-            type="date"
-            className="form-control mb-2"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-          />
-          <select
-            className="form-select mb-2"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
+
+          <div className="row g-3 mb-3">
+            <div className="col-md-6">
+              <label className="form-label">Due Date</label>
+              <input
+                type="date"
+                className="form-control"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
+            </div>
+
+            <div className="col-md-6">
+              <label className="form-label">Priority</label>
+              <select
+                className="form-select"
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+              >
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+              </select>
+            </div>
+          </div>
+
           <button type="submit" className="btn btn-primary w-100">
             ➕ Add Task
           </button>

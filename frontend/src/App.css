@@ -1,38 +1,113 @@
-.App {
-  text-align: center;
+/* ----------- Global Base Styles ----------- */
+body {
+  font-family: 'Segoe UI', 'Inter', sans-serif;
+  background-color: #f8fafc; /* Soft light background */
+  color: #333;
+  transition: background-color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+  max-width: 900px;
+  margin: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ----------- Card Styles ----------- */
+.card {
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ----------- Button Styles ----------- */
+.btn {
+  transition: all 0.2s ease-in-out;
+  border-radius: 50px;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 132, 255, 0.2);
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Color Palette */
+.btn-primary {
+  background-color: #6c63ff;
+  border-color: #6c63ff;
+}
+
+.btn-danger {
+  background-color: #f76c6c;
+  border-color: #f76c6c;
+}
+
+.btn-outline-secondary {
+  border-color: #888;
+  color: #555;
+}
+
+/* ----------- Badge Styles ----------- */
+.badge {
+  font-size: 0.75rem;
+  border-radius: 12px;
+  padding: 5px 10px;
+  margin-right: 4px;
+  transition: all 0.3s ease;
+}
+
+.badge.bg-info {
+  background-color: #c4e5ff;
+  color: #007acc;
+}
+
+.badge.bg-secondary {
+  background-color: #e0d4ff;
+  color: #5c3dbb;
+}
+
+.badge.bg-light {
+  background-color: #eee;
+  color: #444;
+}
+
+/* Pulse Animation for Status */
+.badge-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(108, 99, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+}
+
+/* ----------- Pagination Buttons ----------- */
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+}
+
+/* ----------- Form Transitions ----------- */
+input, textarea, select {
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: 0 0 0 0.15rem rgba(100, 200, 255, 0.25);
+  border-color: #80bdff;
 }

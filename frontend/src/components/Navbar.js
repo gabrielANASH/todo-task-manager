@@ -2,19 +2,25 @@ import React from "react";
 
 function Navbar({ user, handleLogout }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-      <span className="navbar-brand">📝 Todo App</span>
-      <div className="ml-auto">
-        {user && (
-          <>
-            <span className="text-white mr-3">
-              Hi, {user.displayName || user.email}
-            </span>
-             <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
-              Logout
-            </button>
-          </>
-        )}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 px-4">
+      <div className="container-fluid">
+        <span className="navbar-brand fw-bold fs-4">📝 Todo Manager</span>
+
+        <div className="d-flex align-items-center ms-auto gap-3">
+          {user && (
+            <>
+              <span className="text-white fw-semibold">
+                👋 Hello, {user.displayName || user.email}
+              </span>
+              <button
+                className="btn btn-outline-light btn-sm rounded-pill px-3"
+                onClick={handleLogout}
+              >
+                🚪 Logout
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
