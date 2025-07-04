@@ -94,9 +94,9 @@ Backend (Render): [Add link here]
 
 ## 🎬 Demo Video
 
-Watch the walkthrough of the app here:
+Watch a quick walkthrough of the Todo Task Manager in action:
 
-[![Watch the demo](https://youtu.be/chfIHvB8zSo)
+[![Watch the demo video](https://img.youtube.com/vi/chfIHvB8zSo/0.jpg)](https://youtu.be/chfIHvB8zSo)
 
 
 🗂️ Architecture Diagram
