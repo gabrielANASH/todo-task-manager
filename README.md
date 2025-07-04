@@ -92,7 +92,10 @@ Frontend (Vercel): [Add link here]
 
 Backend (Render): [Add link here]
 
-Loom Video: [Add Loom recording link here]
+🎥 Demo Video:  
+[▶️ Click to Watch](./assets/Todo-demovid.mp4)
+
+<video src="assets/Todo-demovid.mp4" controls width="100%" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 12px;"></video>
 
 🗂️ Architecture Diagram
 Include your diagram here or link to it
