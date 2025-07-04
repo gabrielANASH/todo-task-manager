@@ -7,8 +7,10 @@ function Navbar({ user, handleLogout }) {
       <div className="ml-auto">
         {user && (
           <>
-            <span className="text-white mr-3">Hi, {user.displayName}</span>
-            <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
+            <span className="text-white mr-3">
+              Hi, {user.displayName || user.email}
+            </span>
+             <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
               Logout
             </button>
           </>

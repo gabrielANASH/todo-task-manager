@@ -17,14 +17,19 @@ router.post("/", isAuthenticated, async (req, res) => {
   res.json(saved);
 });
 
-// Update
+// Update a task
 router.put("/:id", isAuthenticated, async (req, res) => {
-  const updated = await Task.findOneAndUpdate(
-    { _id: req.params.id, user: req.user.id },
-    req.body,
-    { new: true }
-  );
-  res.json(updated);
+  try {
+    const updated = await Task.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.id },
+      req.body,
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ message: "Task not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: "Update failed" });
+  }
 });
 
 // Delete
