@@ -92,7 +92,12 @@ Frontend (Vercel): [Add link here]
 
 Backend (Render): [Add link here]
 
-Loom Video: [Add Loom recording link here]
+## 🎬 Demo Video
+
+Watch a quick walkthrough of the Todo Task Manager in action:
+
+[![Watch the demo video](https://img.youtube.com/vi/chfIHvB8zSo/0.jpg)](https://youtu.be/chfIHvB8zSo)
+
 
 🗂️ Architecture Diagram
 Include your diagram here or link to it
