@@ -4,6 +4,9 @@ import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 
+// 🔗 Use env variable
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -11,7 +14,7 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/user", {
+        const res = await fetch(`${API_BASE}/api/auth/user`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -26,7 +29,7 @@ function App() {
   // Handle logout
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
+      await fetch(`${API_BASE}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -47,7 +50,7 @@ function App() {
           </div>
           <a
             className="btn btn-outline-dark btn-lg w-100 d-flex align-items-center justify-content-center gap-2"
-            href="http://localhost:5000/api/auth/google"
+            href={`${API_BASE}/api/auth/google`}
           >
             <img
               src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
