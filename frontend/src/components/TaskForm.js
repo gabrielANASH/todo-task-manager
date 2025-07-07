@@ -92,6 +92,7 @@ function TaskForm({ onAdd }) {
             </div>
           </div>
 
+          {/* ✅ Submit button inside the form, with spacing */}
           <button type="submit" className="btn btn-primary w-100">
             ➕ Add Task
           </button>
