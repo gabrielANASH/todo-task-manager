@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import "./App.css";
 import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 
-// 🔗 Use env variable
-const API_BASE = process.env.REACT_APP_API_BASE;
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,7 +25,6 @@ function App() {
     fetchUser();
   }, []);
 
-  // Handle logout
   const handleLogout = async () => {
     try {
       await fetch(`${API_BASE}/api/auth/logout`, {
@@ -39,7 +37,6 @@ function App() {
     }
   };
 
-  // 🔐 Not logged in? Show modern login screen
   if (!user) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -65,7 +62,6 @@ function App() {
     );
   }
 
-  // ✅ Logged in UI
   return (
     <div className="bg-body-secondary min-vh-100">
       <Navbar user={user} handleLogout={handleLogout} />
