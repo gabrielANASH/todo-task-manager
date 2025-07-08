@@ -5,6 +5,7 @@ const router = express.Router();
 // 🌐 Google Login
 router.get("/google", passport.authenticate("google", {
   scope: ["profile", "email"],
+  callbackURL: `${process.env.BACKEND_URL}/api/auth/google/callback`, // 👈 ADD THIS
 }));
 
 // ✅ Google OAuth Callback
