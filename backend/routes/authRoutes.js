@@ -4,20 +4,17 @@ const router = express.Router();
 
 // 🌐 Google Login
 router.get("/google", passport.authenticate("google", {
-  scope: ["profile", "email"]
+  scope: ["profile", "email"],
 }));
 
 // ✅ Google OAuth Callback
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: process.env.CLIENT_URL, // fallback on failure
+    failureRedirect: process.env.CLIENT_URL,
+    successRedirect: process.env.CLIENT_URL, // safer redirect
     session: true,
-  }),
-  (req, res) => {
-    // 🔁 Redirect to frontend on success
-    res.redirect(process.env.CLIENT_URL);
-  }
+  })
 );
 
 // 🔐 Logout (GET)
@@ -42,7 +39,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-// 👤 Current logged-in user
+// 👤 Get current user (for frontend session check)
 router.get("/user", (req, res) => {
   res.json(req.user || null);
 });

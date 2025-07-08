@@ -2,19 +2,19 @@ const http = require("http");
 const dotenv = require("dotenv");
 const { Server } = require("socket.io");
 
-// Load environment variables from .env
+// Load environment variables
 dotenv.config();
 
 const connectDB = require("./config/db");
 const app = require("./app");
 
-// Connect to MongoDB
+// ✅ Connect MongoDB
 connectDB();
 
-// Create server using Express app
+// ✅ Create HTTP server
 const server = http.createServer(app);
 
-// Initialize Socket.IO with CORS setup
+// ✅ Setup Socket.IO
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL || "http://localhost:3000",
@@ -23,10 +23,10 @@ const io = new Server(server, {
   },
 });
 
-// Register socket handlers
+// ✅ Load socket events
 require("./sockets/taskSocket")(io);
 
-// Start the server
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
