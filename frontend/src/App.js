@@ -8,8 +8,9 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check if user is authenticated
+  // ✅ Check user authentication on mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -20,6 +21,8 @@ function App() {
         setUser(data);
       } catch (err) {
         setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
@@ -33,10 +36,19 @@ function App() {
       });
       setUser(null);
     } catch (err) {
-      alert("⚠️ Failed to logout");
+      alert("⚠️ Logout failed");
     }
   };
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+        <div className="spinner-border text-primary" role="status" />
+      </div>
+    );
+  }
+
+  // ✅ If not logged in, show login card
   if (!user) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -62,6 +74,7 @@ function App() {
     );
   }
 
+  // ✅ Authenticated UI
   return (
     <div className="bg-body-secondary min-vh-100">
       <Navbar user={user} handleLogout={handleLogout} />

@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors"); // ✅ Only once
+const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config();
@@ -8,7 +8,10 @@ require("./config/passport")(passport);
 const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 
-const app = express(); // ✅ Move this to top before using `app`
+const app = express();
+
+// ✅ Trust proxy (for secure cookies on Render)
+app.set("trust proxy", 1);
 
 // ✅ CORS middleware
 app.use(cors({
@@ -21,24 +24,24 @@ app.use(express.json());
 
 // ✅ Session middleware
 app.use(session({
-  secret: "keyboard cat", // Optional: use process.env.SESSION_SECRET
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    sameSite: "lax",
-    secure: false, // Set to true if HTTPS
-  },
+    sameSite: "none", // Needed for cross-site cookies
+    secure: true,     // Required on HTTPS
+  }
 }));
 
-// ✅ Passport setup
+// ✅ Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ✅ Mount routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// ✅ Test route
+// ✅ Health check
 app.get("/", (req, res) => res.send("✅ Backend running"));
 
 module.exports = app;
