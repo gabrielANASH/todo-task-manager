@@ -2,43 +2,47 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 
-// Login with Google
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+// 🌐 Google Login
+router.get("/google", passport.authenticate("google", {
+  scope: ["profile", "email"]
+}));
 
-// Callback after login
+// ✅ Google OAuth Callback
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000",
+    failureRedirect: process.env.CLIENT_URL, // fallback on failure
+    session: true,
   }),
   (req, res) => {
-    res.redirect("http://localhost:3000");
+    // 🔁 Redirect to frontend on success
+    res.redirect(process.env.CLIENT_URL);
   }
 );
 
-// Logout (GET)
+// 🔐 Logout (GET)
 router.get("/logout", (req, res) => {
-  req.logout(function(err) {
+  req.logout(err => {
     if (err) return res.status(500).json({ message: "Logout failed" });
     req.session.destroy(() => {
-      res.clearCookie("connect.sid", { path: "/" }); // Important: clear cookie for all paths
+      res.clearCookie("connect.sid", { path: "/" });
       res.redirect(process.env.CLIENT_URL);
     });
   });
 });
 
-// Logout (POST)
+// 🔐 Logout (POST)
 router.post("/logout", (req, res) => {
-  req.logout(function(err) {
+  req.logout(err => {
     if (err) return res.status(500).json({ message: "Logout failed" });
     req.session.destroy(() => {
-      res.clearCookie("connect.sid", { path: "/" }); // Important: clear cookie for all paths
+      res.clearCookie("connect.sid", { path: "/" });
       res.json({ message: "Logged out" });
     });
   });
 });
 
-// Fetch current logged-in user
+// 👤 Current logged-in user
 router.get("/user", (req, res) => {
   res.json(req.user || null);
 });

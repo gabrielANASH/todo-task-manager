@@ -11,9 +11,11 @@ const taskRoutes = require("./routes/taskRoutes");
 const app = express();
 
 // CORS
+const cors = require("cors");
+
 app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
+  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  credentials: true
 }));
 
 app.use(express.json());

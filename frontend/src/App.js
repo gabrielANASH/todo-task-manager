@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 
-const API_BASE = process.env.REACT_APP_API_BASE_ || "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 function App() {
   const [user, setUser] = useState(null);
